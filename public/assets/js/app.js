@@ -135,7 +135,7 @@ function mousePosition(e) {
 window.onload = function () {
   console.log('page loaded');
   const setTitle = document.getElementById('title');
-  setTitle.innerHTML = 'Crappy grapics designer ' + version;
+  setTitle.innerHTML = 'Crappy Graphics Designer ' + version;
   new CreateCanvas('can-1', 400, 400);
   // new CreateCanvas('can-2', 400, 400);
 };
