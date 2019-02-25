@@ -143,6 +143,20 @@ window.onload = function () {
 };
 
 //  On Screen Controlls.
+// let saveAsImage = document.getElementById(storedLayers[storedLayers.length - 1].name);
+let saveAsImage = document.getElementById('save-image');
+saveAsImage.addEventListener('click', function (e) {
+  console.log('save button clicked')
+    let canvas = document.getElementById(storedLayers[storedLayers.length - 1].name);
+    let dataURL = canvas.toDataURL('image/png');
+    let tmpLink = document.createElement( 'a' );      
+    tmpLink.download = 'image.png'; // set the name of the download file     
+    tmpLink.href = dataURL;        // temporarily add link to body and initiate the download      
+    document.body.appendChild( tmpLink );      
+    tmpLink.click();      
+    document.body.removeChild( tmpLink ); 
+});
+
 let infillUse = document.getElementById('infill');
 infillUse.onclick = function () {
   if (infill === false) {
