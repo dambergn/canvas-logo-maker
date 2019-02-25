@@ -10,6 +10,8 @@ This is a simple project for making simple grapics and images.  Mainly using thi
 - [X] Layer dynamically created canvas elements on top of each other.
 - [X] Turn infill on and off.
 - [X] Combine layers so they can be saved as a single image.
+- [X] Undo button.
+- [X] Set version in title.
 - [ ] Set positions to scale with change of canvas size.
 - [ ] Change canvas size without starting a new project.
 - [ ] Set or change color of infill and lines.

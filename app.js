@@ -1,6 +1,7 @@
 'use strict';
 console.log('script loaded sucessfully');
 
+const version = 'V1.01';
 const workArea = document.getElementById('work-area');
 let currentWidth = 0;
 let currentHeight = 0;
@@ -60,11 +61,9 @@ function renderAllLayers(toCanvas) {
   for (let i = 0; i < storedLayers.length; i++) {
     thisCanvas.beginPath();
     if (storedLayers[i].lines.length === 1) {
-      // console.log(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY)
       thisCanvas.moveTo(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY);
     } else {
       for (let j = 0; j < storedLayers[i].lines.length; j++) {
-        // console.log(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY)
         thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
         thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
         if (infill === true) {
@@ -86,6 +85,16 @@ function addNewDrawpoint(x, y) {
   for (let i = 0; i < storedLayers.length; i++) {
     if (storedLayers[i].name === activeLayer) {
       storedLayers[i].lines.push(line);
+      break;
+    };
+  };
+  renderActiveLayer();
+};
+
+function undoDrawpoint() {
+  for (let i = 0; i < storedLayers.length; i++) {
+    if (storedLayers[i].name === activeLayer) {
+      storedLayers[i].lines.pop();
       break;
     };
   };
@@ -125,10 +134,13 @@ function mousePosition(e) {
 
 window.onload = function () {
   console.log('page loaded');
+  const setTitle = document.getElementById('title');
+  setTitle.innerHTML = 'Crappy grapics designer ' + version;
   new CreateCanvas('can-1', 400, 400);
   // new CreateCanvas('can-2', 400, 400);
 };
 
+//  On Screen Controlls.
 let infillUse = document.getElementById('infill');
 infillUse.onclick = function () {
   if (infill === false) {
@@ -152,4 +164,10 @@ combineLayers.onclick = function () {
   new CreateCanvas(`can-${storedLayers.length + 1}`, 400, 400);
   renderAllLayers(storedLayers.length + 1)
   console.log('all layers combined');
+};
+
+let removeLine = document.getElementById('undo');
+removeLine.onclick = function () {
+  undoDrawpoint();
+  console.log('Line Removed.');
 };
