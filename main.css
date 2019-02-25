@@ -1,0 +1,10 @@
+#work-area{
+  /* border: solid 1px black; */
+}
+
+.canvas{
+  border: solid 1px black;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
