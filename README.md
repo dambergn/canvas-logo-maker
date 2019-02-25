@@ -3,6 +3,8 @@ using canvas as a graphics designer
 
 This is a simple project for making simple grapics and images.  Mainly using this to familiarize myself with canvas.
 
+![alt text](https://i.imgflip.com/1238ua.jpg)
+
 ## Features
 - [X] Use a constructer function to create a canvas element.
 - [X] Layer dynamically created canvas elements on top of each other.
