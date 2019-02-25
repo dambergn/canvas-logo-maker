@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <title>Graphics?</title>
 </head>
+
 <body>
   <h1 id='title'>Crappy Graphics Designer</h1>
 
@@ -15,10 +17,20 @@
     <button id="new-layer">New Layer</button>
     <button id="combine-layers">Combine Layers</button>
     <button id="undo">Undo</button>
+    <br>
+    <div id="color-select">
+      <button id="black" class="color-select" onclick="currenInfillColor='black'">black</button>
+      <button id="white" class="color-select" onclick="currenInfillColor='white'">white</button>
+      <button id="red" class="color-select" onclick="currenInfillColor='red'">red</button>
+      <button id="blue" class="color-select" onclick="currenInfillColor='blue'">blue</button>
+      <button id="green" class="color-select" onclick="currenInfillColor='green'">green</button>
+      <button id="yellow" class="color-select" onclick="currenInfillColor='yellow'">yellow</button>
+    </div>
   </div>
 
   <div id="work-area" class="work-area" style="position: relative;"></div>
 
   <script src="assets/js/app.js"></script>
 </body>
+
 </html>

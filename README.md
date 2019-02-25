@@ -18,6 +18,7 @@ This is a simple project for making simple grapics and images.  Mainly using thi
 - [ ] Set positions to scale with change of canvas size.
 - [ ] Change canvas size without starting a new project.
 - [ ] Set or change color of infill and lines.
+  - [ ] Larger list of colors.
 - [ ] List and switch between layers.
 - [ ] Give and/or change layer names.
 - [ ] List out line positions that can be manually adjusted.

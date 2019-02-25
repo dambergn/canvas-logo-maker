@@ -8,6 +8,7 @@ let currentHeight = 0;
 let storedLayers = [];
 let activeLayer = '';
 let currentLineColor = '#000000';
+let currenInfillColor = '#000000';
 let infill = false;
 let modeLine = true;
 let modeDraw = false;
@@ -17,6 +18,8 @@ function CreateCanvas(name, height, width) {
   this.height = height;
   this.width = width;
   this.lines = [];
+  this.infill = false;
+  this.infillColor = '#000000';
 
   let newCanvas = document.createElement('canvas')
   newCanvas.setAttribute('id', this.name);
@@ -42,11 +45,13 @@ function renderActiveLayer() {
       } else {
         for (let j = 0; j < storedLayers[i].lines.length; j++) {
           thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
-          thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
-          if (infill === true) {
-            thisCanvas.fillStyle = storedLayers[i].lines[j].color;
-            thisCanvas.fill();
-          };
+          thisCanvas.strokeStyle = storedLayers[i].lines[j].color; 
+        };
+        if (infill === true) {
+          thisCanvas.fillStyle = currenInfillColor;
+          storedLayers[i].infill = infill;
+          storedLayers[i].infillColor = currenInfillColor;
+          thisCanvas.fill();
         };
       };
       thisCanvas.stroke();
@@ -65,11 +70,11 @@ function renderAllLayers() {
     } else {
       for (let j = 0; j < storedLayers[i].lines.length; j++) {
         thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
-        thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
-        if (infill === true) {
-          thisCanvas.fillStyle = storedLayers[i].lines[j].color;
-          thisCanvas.fill();
-        };
+        thisCanvas.strokeStyle = storedLayers[i].lines[j].color; 
+      };
+      if (infill === true) {
+        thisCanvas.fillStyle = storedLayers[i].infillColor;
+        thisCanvas.fill();
       };
     };
     thisCanvas.stroke();
@@ -167,4 +172,9 @@ let removeLine = document.getElementById('undo');
 removeLine.onclick = function () {
   undoDrawpoint();
   console.log('Line Removed.');
+};
+
+let colorSelector = document.getElementById('color-select');
+colorSelector.onclick = function () {
+  renderActiveLayer();
 };
