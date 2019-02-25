@@ -1,7 +1,7 @@
 'use strict';
 console.log('script loaded sucessfully');
 
-const version = 'V1.02';
+const version = 'V1.03';
 const workArea = document.getElementById('work-area');
 let currentWidth = 0;
 let currentHeight = 0;
@@ -9,6 +9,8 @@ let storedLayers = [];
 let activeLayer = '';
 let currentLineColor = '#000000';
 let infill = false;
+let modeLine = true;
+let modeDraw = false;
 
 function CreateCanvas(name, height, width) {
   this.name = name;
@@ -36,11 +38,9 @@ function renderActiveLayer() {
       thisCanvas.clearRect(0, 0, currentWidth, currentHeight);
       thisCanvas.beginPath();
       if (storedLayers[i].lines.length === 1) {
-        // console.log(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY)
         thisCanvas.moveTo(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY);
       } else {
         for (let j = 0; j < storedLayers[i].lines.length; j++) {
-          // console.log(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY)
           thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
           thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
           if (infill === true) {
@@ -55,7 +55,7 @@ function renderActiveLayer() {
   };
 };
 
-function renderAllLayers(toCanvas) {
+function renderAllLayers() {
   let thisCanvas = document.getElementById(storedLayers[storedLayers.length - 1].name).getContext('2d');
   thisCanvas.clearRect(0, 0, currentWidth, currentHeight);
   for (let i = 0; i < storedLayers.length; i++) {
@@ -103,8 +103,7 @@ function undoDrawpoint() {
 
 document.onmousedown = function (e) {
   if (e.which === 1) {// Left Mouse button
-    mousePosition(e);
-    renderActiveLayer();
+    mousePosition(event);
   };
   if (e.which === 2) {// Middle Mouse button
     console.log('Middle Mouse button')
@@ -120,7 +119,7 @@ document.onmousedown = function (e) {
   };
 };
 
-function mousePosition(e) {
+function mousePosition(event) {
   var rect = workArea.getBoundingClientRect();
   let x = Math.round(event.clientX - rect.left);
   let y = Math.round(event.clientY - rect.top);
@@ -128,8 +127,7 @@ function mousePosition(e) {
   console.log('X:', x, 'Y:', y);
   if (x > 0 && y > 0 && x < currentWidth && y < currentHeight) {
     addNewDrawpoint(x, y);
-  }
-
+  };
 };
 
 window.onload = function () {
@@ -137,7 +135,6 @@ window.onload = function () {
   const setTitle = document.getElementById('title');
   setTitle.innerHTML = 'Crappy Graphics Designer ' + version;
   new CreateCanvas('can-1', 400, 400);
-  // new CreateCanvas('can-2', 400, 400);
 };
 
 //  On Screen Controlls.
@@ -162,7 +159,7 @@ newLayer.onclick = function () {
 let combineLayers = document.getElementById('combine-layers');
 combineLayers.onclick = function () {
   new CreateCanvas(`can-${storedLayers.length + 1}`, 400, 400);
-  renderAllLayers(storedLayers.length + 1)
+  renderAllLayers();
   console.log('all layers combined');
 };
 
