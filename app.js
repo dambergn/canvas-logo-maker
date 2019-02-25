@@ -42,7 +42,7 @@ function renderActiveLayer() {
           // console.log(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY)
           thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
           thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
-          if(infill === true){
+          if (infill === true) {
             thisCanvas.fillStyle = storedLayers[i].lines[j].color;
             thisCanvas.fill();
           };
@@ -51,6 +51,29 @@ function renderActiveLayer() {
       thisCanvas.stroke();
       break;
     };
+  };
+};
+
+function renderAllLayers(toCanvas) {
+  let thisCanvas = document.getElementById(storedLayers[storedLayers.length - 1].name).getContext('2d');
+  thisCanvas.clearRect(0, 0, currentWidth, currentHeight);
+  for (let i = 0; i < storedLayers.length; i++) {
+    thisCanvas.beginPath();
+    if (storedLayers[i].lines.length === 1) {
+      // console.log(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY)
+      thisCanvas.moveTo(storedLayers[i].lines[0].lineX, storedLayers[i].lines[0].lineY);
+    } else {
+      for (let j = 0; j < storedLayers[i].lines.length; j++) {
+        // console.log(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY)
+        thisCanvas.lineTo(storedLayers[i].lines[j].lineX, storedLayers[i].lines[j].lineY);
+        thisCanvas.strokeStyle = storedLayers[i].lines[j].color;
+        if (infill === true) {
+          thisCanvas.fillStyle = storedLayers[i].lines[j].color;
+          thisCanvas.fill();
+        };
+      };
+    };
+    thisCanvas.stroke();
   };
 };
 
@@ -94,10 +117,10 @@ function mousePosition(e) {
   let y = Math.round(event.clientY - rect.top);
   // console.log(rect.top, rect.right, rect.bottom, rect.left);
   console.log('X:', x, 'Y:', y);
-  if(x > 0 && y > 0 && x < currentWidth && y < currentHeight){
+  if (x > 0 && y > 0 && x < currentWidth && y < currentHeight) {
     addNewDrawpoint(x, y);
   }
-  
+
 };
 
 window.onload = function () {
@@ -107,8 +130,8 @@ window.onload = function () {
 };
 
 let infillUse = document.getElementById('infill');
-infillUse.onclick = function(){
-  if(infill === false){
+infillUse.onclick = function () {
+  if (infill === false) {
     infill = true;
     infillUse.innerHTML = 'No fill';
   } else {
@@ -116,4 +139,17 @@ infillUse.onclick = function(){
     infillUse.innerHTML = 'In fill';
   };
   renderActiveLayer();
+};
+
+let newLayer = document.getElementById('new-layer');
+newLayer.onclick = function () {
+  new CreateCanvas(`can-${storedLayers.length + 1}`, 400, 400);
+  console.log('New Layer Created.');
+};
+
+let combineLayers = document.getElementById('combine-layers');
+combineLayers.onclick = function () {
+  new CreateCanvas(`can-${storedLayers.length + 1}`, 400, 400);
+  renderAllLayers(storedLayers.length + 1)
+  console.log('all layers combined');
 };
