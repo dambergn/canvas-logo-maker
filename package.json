@@ -1,0 +1,23 @@
+{
+  "name": "canvas-logo-maker",
+  "version": "1.0.0",
+  "description": "using canvas as a graphics designer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dambergn/canvas-logo-maker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dambergn/canvas-logo-maker/issues"
+  },
+  "homepage": "https://github.com/dambergn/canvas-logo-maker#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

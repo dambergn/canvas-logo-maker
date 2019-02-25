@@ -1,7 +1,7 @@
 'use strict';
 console.log('script loaded sucessfully');
 
-const version = 'V1.01';
+const version = 'V1.02';
 const workArea = document.getElementById('work-area');
 let currentWidth = 0;
 let currentHeight = 0;
